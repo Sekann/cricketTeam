@@ -33,6 +33,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/players/**").permitAll()
+                        .requestMatchers("/api/matches/**").permitAll()
+                        .requestMatchers("/api/teams/**").permitAll()
+                        .requestMatchers("/api/news/**").permitAll()
+                        .requestMatchers("/api/contact/**").permitAll()
+
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
