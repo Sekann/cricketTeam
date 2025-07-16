@@ -96,4 +96,4 @@ El proyecto web ofrece las siguientes características principales:
 ✅ Interfaz moderna y dinámica: Un diseño atractivo y con elementos visuales actuales.
 
 🔗 Autor y Créditos
-Proyecto realizado por [Tu Nombre] como parte de [tu formación / proyecto personal / entrega académica].
+Proyecto realizado por Sekandar como parte de un proyecto personal.
