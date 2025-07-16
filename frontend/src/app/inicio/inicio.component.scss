@@ -112,11 +112,15 @@
 }
 
 .news-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: linear-gradient(160deg, #1a1a1a, #0d0d0d);
   border: 1px solid rgba(255, 0, 0, 0.3);
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 400px;
 
   &:hover {
     transform: scale(1.02);
@@ -130,83 +134,128 @@
   }
 
   .news-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     padding: 1rem;
+
     h3 {
       font-size: 1.4rem;
       color: #fff;
+      margin-bottom: 0.5rem;
     }
+
     p {
       color: #ccc;
       font-size: 1rem;
+      flex-grow: 1;
+
+      // Mostrar solo 3 líneas y agregar "..." si es largo
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .btn-detail {
+      align-self: flex-start;
+      margin-top: 1rem;
+      background: transparent;
+      color: #c62828;
+      border: 2px solid #c62828;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #c62828;
+        color: #fff;
+      }
     }
   }
 }
 
+
 // PARTIDOS
-.match-table {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
 }
 
-.match-row {
-  background: #151515;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+.match-card {
+  background: linear-gradient(160deg, #1a1a1a, #0d0d0d);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  transition: 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  width: 50%;
-  margin: auto;
-  transition: transform 0.3s ease;
 
-  .match-info {
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+  }
+
+  .match-header {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-weight: 400;
-    font-size: 1.3rem;
-  }
-
-  .team {
-    flex: 1;
-  }
-
-  .match-vs {
-    font-weight: bold;
-    color: #c62828;
-  }
-
-  .match-date {
-    flex-basis: 100%;
-    color: #666;
-    font-size: 0.95rem;
-  }
-
-  .match-btn-wrapper {
-    display: flex;
     justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .team-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid #ff0000;
+      background: #fff;
+    }
+
+    .vs-label {
+      color: #ff0000;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
   }
 
-  .btn-detail {
-    background: transparent;
-    color: #c62828;
-    border: 2px solid #c62828;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-weight: 400;
-    transition: all 0.3s ease;
+  .match-teams {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 0.5rem;
 
-    &:hover {
-      background: #c62828;
+    span:first-child {
+      text-align: left;
+    }
+
+    span:last-child {
+      text-align: right;
+    }
+  }
+
+  .match-date-result {
+    font-size: 1rem;
+    color: #999;
+    margin-bottom: 1rem;
+
+    strong {
       color: #fff;
     }
   }
 }
+
+
 
 
 // JUGADORES
@@ -334,6 +383,7 @@
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  
 
   &:hover {
     background: #c62828;

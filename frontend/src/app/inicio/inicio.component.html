@@ -1,8 +1,8 @@
 <!-- HERO SECTION -->
 <section class="hero" aria-label="Inicio">
   <video #bgVideo autoplay muted playsinline loop class="bg-video">
-  <source src="assets/video.mp4" type="video/mp4" />
-</video>
+    <source src="assets/video.mp4" type="video/mp4" />
+  </video>
   <div class="overlay"></div>
   <div class="hero-content">
     <h1 class="glitch" data-text="MADRID UNITED CC">
@@ -13,41 +13,44 @@
   </div>
 </section>
 
-<!-- NOTICIAS -->
-<section id="noticias" class="section noticias reveal fade-up">
-  <h2 class="section-title">📰 Últimas Noticias del Club</h2>
-  <div class="news-grid">
-    <div class="news-card reveal slide-in-left" *ngFor="let noticia of noticias">
-      <img [src]="noticia.img" alt="Noticia" class="news-img" />
-      <div class="news-info">
-        <h3>{{ noticia.titulo }}</h3>
-        <p>{{ noticia.resumen }}</p>
-        <button class="btn-detail" (click)="verDetalleNoticia(noticia)">Ver más</button>
-      </div>
-    </div>
-  </div>
-  <div class="section-footer">
-    <button class="btn-primary" (click)="verTodasNoticias()">Ver todas las noticias</button>
-  </div>
-</section>
+
 
 <!-- PARTIDOS -->
 <section id="partidos" class="section partidos reveal fade-up">
-  <h2 class="section-title">📅 Próximos Partidos Oficiales</h2>
-  <div class="match-table">
-    <div class="match-row reveal slide-in-right" *ngFor="let match of partidos">
-  <div class="match-info">
-    <div class="team team-left">{{ match.local }}</div>
-    <div class="match-vs">VS</div>
-    <div class="team team-right">{{ match.visitante }}</div>
-    <div class="match-date">{{ match.fecha | date: 'longDate' }}</div>
+  <h2 class="section-title">
+    📅 {{ partidos[0]?.fecha >= today ? 'Próximos Partidos Oficiales' : 'Últimos Partidos Jugados' }}
+  </h2>
+  <div class="match-grid">
+  <div class="match-card reveal fade-up" *ngFor="let match of partidos" [ngClass]="{ 'past-match': match.resultado }">
+  <div class="match-header">
+    <div class="team-side">
+      <span class="team-name">{{ match.local }}   </span>
+      <img [src]="match.logoLocal" alt="{{ match.local }}" class="team-logo" />
+      
+    </div>
+    <div class="vs-label">VS</div>
+    <div class="team-side">
+      <img [src]="match.logoVisitante" alt="{{ match.visitante }}" class="team-logo" />
+      <span class="team-name">   {{ match.visitante }}</span>
+    </div>
   </div>
-  <div class="match-btn-wrapper">
-    <button class="btn-detail" (click)="verDetallePartido(match)">Ver detalles</button>
+
+  <div class="match-date-result">
+    <ng-container *ngIf="match.resultado; else upcoming">
+      🏆 <strong>{{ match.resultado }}</strong> <span class="check-icon">✔</span>
+    </ng-container>
+    <ng-template #upcoming>
+      📅 {{ match.fecha | date: 'longDate' }}
+    </ng-template>
   </div>
+
+  <button class="btn-detail" (click)="verDetallePartido(match)">
+    {{ match.resultado ? 'Ver resumen' : 'Ver detalles' }}
+  </button>
 </div>
 
-  </div>
+</div>
+
   <div class="section-footer">
     <button class="btn-primary" (click)="verTodosPartidos()">Ver todos los partidos</button>
   </div>
@@ -68,5 +71,20 @@
   </div>
   <div class="section-footer">
     <button class="btn-primary" (click)="verTodosJugadores()">Ver todos los jugadores</button>
+  </div>
+</section>
+
+<!-- NOTICIAS -->
+<section id="noticias" class="section noticias ">
+  <h2 class="section-title">📰 Últimas Noticias del Club</h2>
+  <div class="news-grid">
+    <div class="news-card reveal slide-in-left" *ngFor="let noticia of noticias">
+      <img [src]="noticia.img" alt="Noticia" class="news-img" />
+      <div class="news-info">
+        <h3>{{ noticia.titulo}}</h3>
+        <p>{{ noticia.resumen}}</p>
+        <button class="btn-detail" (click)="verDetalleNoticia(noticia)">Ver más</button>
+      </div>
+    </div>
   </div>
 </section>

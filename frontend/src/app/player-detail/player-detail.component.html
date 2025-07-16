@@ -1,1 +1,31 @@
-<p>player-detail works!</p>
+<div class="player-detail-wrapper" *ngIf="player">
+  <section class="player-detail">
+    <h2 class="section-title-glow">Detalles del Jugador</h2>
+
+    <div class="player-info">
+      <div class="player-photo">
+        <img [src]="player.foto" [alt]="player.nombre" />
+      </div>
+      <div class="player-data">
+        <h3 class="player-name">{{ player.nombre }}</h3>
+        <p><strong>Número : </strong> {{ player.numero }}</p>
+        <p><strong>Rol : </strong> {{ player.posicion }}</p>
+      </div>
+    </div>
+
+    <div class="player-stats">
+      <h4>📊 Estadísticas de Bateo</h4>
+      <pre *ngIf="player.estadisticaBateo">{{ player.estadisticaBateo }}</pre>
+
+      <h4>🎯 Estadísticas de Bowling</h4>
+      <pre *ngIf="player.estadisticaBoleo">{{ player.estadisticaBoleo }}</pre>
+    </div>
+  </section>
+</div>
+
+<div class="not-found" *ngIf="!player">
+  <section class="player-detail not-found-message">
+    <h2>⚠️ Jugador no encontrado</h2>
+    <p>Este jugador no existe o fue eliminado.</p>
+  </section>
+</div>

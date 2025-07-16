@@ -1,1 +1,40 @@
-<p>match works!</p>
+<section class="matches-section">
+    <h2 class="section-title">
+        📅 {{ allMatches[0]?.fecha >= today ? 'Próximos Partidos ' : 'Últimos Partidos Jugados' }}
+    </h2>
+
+    <div class="match-grid">
+        <div class="match-card" *ngFor="let match of displayedMatches" [ngClass]="{ 'past-match': match.resultado }">
+            <div class="match-header">
+                <div class="team-side">
+                    <span class="team-name">{{ match.local }}</span>
+                    <img [src]="match.logoLocal" alt="{{ match.local }}" class="team-logo" />
+                </div>
+                <div class="vs-label">VS</div>
+                <div class="team-side">
+                    <img [src]="match.logoVisitante" alt="{{ match.visitante }}" class="team-logo" />
+                    <span class="team-name">{{ match.visitante }}</span>
+                </div>
+            </div>
+
+            <div class="match-date-result">
+                <ng-container *ngIf="match.resultado; else upcoming">
+                    🏆 <strong>{{ match.resultado }}</strong>
+                </ng-container>
+                <ng-template #upcoming>
+                    📅 {{ match.fecha | date: 'longDate' }}
+                </ng-template>
+            </div>
+
+            <button class="btn-detail" (click)="verDetallePartido(match)">
+                {{ match.resultado ? 'Ver resumen' : 'Ver detalles' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="pagination-buttons">
+        <button *ngIf="hayMasParaCargar()" class="btn-toggle m-2" (click)="cargarMas()">Ver más</button>
+        <button *ngIf="displayedMatches.length > itemsPerPage" class="btn-toggle" (click)="resetPagina()">Ver
+            menos</button>
+    </div>
+</section>

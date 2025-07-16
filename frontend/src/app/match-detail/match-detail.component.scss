@@ -1,0 +1,189 @@
+// Contenedor de detalles del partido
+.match-detail-wrapper {
+  background: #000000; 
+  min-height: 100vh;
+  padding: 6rem 2rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Bebas Neue', sans-serif;
+  color: #eee;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+// Card de detalles del partido con diseño moderno
+.match-detail {
+  background: linear-gradient(135deg, #1b1b1b 0%, #111 95%);
+  max-width: 900px;
+  width: 100%;
+  padding: 3rem 4rem;
+  border-radius: 25px;
+  border: 2px solid #c92323;
+  transition: box-shadow 0.4s ease;
+
+  &:hover {
+    box-shadow:
+      0 0 40px rgb(126, 15, 15),
+     
+  }
+
+  .section-title-glow {
+    font-size: 3.5rem;
+    text-align: center;
+    color: white;
+    letter-spacing: 4px;
+    margin-bottom: 3rem;
+    user-select: none;
+  }
+
+  .match-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 3rem;
+
+    .team {
+      flex: 1 1 140px;
+      text-align: center;
+      position: relative;
+      cursor: default;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.08);
+      }
+
+      img {
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
+        border-radius: 20px;
+        background: #222;
+        padding: 0.6rem;
+        border: 3px solid #d81f1f;
+        transition: box-shadow 0.3s ease;
+        user-select: none;
+      }
+
+      .team-name {
+        margin-top: 1rem;
+        font-weight: 900;
+        font-size: 1.5rem;
+        color: white;
+        letter-spacing: 1.5px;
+        user-select: text;
+      }
+    }
+
+    .match-vs {
+      flex: 0 0 170px;
+      background: #2a2a2a;
+      border-radius: 25px;
+      padding: 1rem 0.8rem;
+      user-select: none;
+      margin-bottom: 2rem;
+
+      .match-date {
+        display: block;
+        font-size: 1rem;
+        font-style: italic;
+        color: #bbb;
+        margin-bottom: 0.8rem;
+        letter-spacing: 0.6px;
+        text-align: center;
+      }
+
+      .match-result {
+        font-size: 2rem;
+        font-weight: 900;
+        color: rgb(226, 16, 16);
+        text-align: center;
+      }
+    }
+  }
+
+  .match-extra {
+    border-top: 1.5px solid rgba(255, 0, 0, 0.3);
+    padding-top: 2rem;
+
+    p {
+      margin: 0.8rem 0;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #ddd;
+      font-weight: 500;
+
+      strong {
+        color: rgb(226, 16, 16);
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        user-select: text;
+      }
+    }
+  }
+}
+
+// Mensaje partido no encontrado
+.not-found-message {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2.5rem 2rem;
+  background: #220000;
+  border-radius: 20px;
+  border: 1.5px solid #ff3b3b;
+  box-shadow:
+    0 0 25px #ff3b3b inset;
+  color: #ff6666;
+  text-align: center;
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 12px #ff3b3b;
+  }
+
+  p {
+    font-size: 1.3rem;
+    color: #ff9999;
+  }
+}
+
+// Responsive: adapta para móviles
+@media (max-width: 720px) {
+  .match-detail-wrapper {
+    padding: 4rem 1rem 3rem;
+  }
+
+  .match-detail {
+    padding: 2rem 2rem;
+
+    .section-title-glow {
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .match-info {
+      flex-direction: column;
+      gap: 1.8rem;
+
+      .team {
+        flex: none;
+      }
+
+      .match-vs {
+        width: 100%;
+        padding: 1rem;
+        padding-bottom:0rem ;
+        font-size: 1.2rem;
+        margin-top: 1rem;
+      }
+    }
+
+    .match-extra {
+      font-size: 1rem;
+    }
+  }
+}

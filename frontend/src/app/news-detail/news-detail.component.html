@@ -1,1 +1,13 @@
-<p>news-detail works!</p>
+<section class="news-detail-section">
+  <div class="container">
+    <button class="btn-back" (click)="volver()">← Volver</button>
+
+    <div class="news-detail-card">
+      <img [src]="noticia.img" alt="Noticia" class="detail-img" />
+      <div class="detail-content">
+        <h1 class="detail-title">{{ noticia.titulo }}</h1>
+        <p class="detail-text">{{ noticia.resumen }}</p>
+      </div>
+    </div>
+  </div>
+</section>

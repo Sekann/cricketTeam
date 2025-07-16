@@ -1,0 +1,124 @@
+.matches-section {
+  background-color: #000;
+  padding: 3rem 1rem;
+  min-height: 100vh;
+
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+  }
+
+  .match-card {
+    background: linear-gradient(160deg, #1a1a1a, #0d0d0d);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+
+    .match-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      .team-side {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .team-name {
+          color: #fff;
+          font-weight: 500;
+          font-size: 1rem;
+          white-space: normal;
+        }
+
+        .team-logo {
+          width: 50px;
+          height: 50px;
+          object-fit: contain;
+          border-radius: 50%;
+          border: 2px solid #ff0000;
+          background: #fff;
+        }
+      }
+
+      .vs-label {
+        color: #ff0000;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+
+    .match-date-result {
+      font-size: 1rem;
+      color: #999;
+      margin-bottom: 1rem;
+
+      strong {
+        color: #fff;
+      }
+    }
+
+    .btn-detail {
+      background: transparent;
+      color: #c62828;
+      border: 1px solid #c62828;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+
+      &:hover {
+        background: #cc0000;
+        color: #fff;
+
+      }
+    }
+  }
+
+
+  .pagination-buttons {
+    text-align: center;
+    margin-top: 2rem;
+
+    .btn-toggle {
+      background-color: #111;
+      color: #ff0000;
+      border: 1px solid #ff0000;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #ff0000;
+        color: #fff;
+      }
+    }
+  }
+}

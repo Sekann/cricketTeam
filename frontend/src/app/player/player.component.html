@@ -1,1 +1,19 @@
-<p>player works!</p>
+<section id="jugadores" class="matches-section">
+  <h2 class="section-title">👥 Plantilla de Jugadores</h2>
+
+  <div class="match-grid">
+    <div class="player-card" *ngFor="let jugador of displayedJugadores">
+      <div class="player-img-wrapper">
+        <img [src]="jugador.foto" alt="{{ jugador.nombre }}" class="player-img" />
+      </div>
+      <h4>{{ jugador.nombre }}</h4>
+      <p>{{ jugador.posicion }}</p>
+      <button class="btn-detail" (click)="verDetalleJugador(jugador)">Ver info</button>
+    </div>
+  </div>
+
+  <div class="pagination-buttons">
+    <button *ngIf="hayMasParaCargar()" class="btn-toggle m-2" (click)="cargarMas()">Ver más</button>
+    <button *ngIf="displayedJugadores.length > itemsPerPage" class="btn-toggle" (click)="resetPagina()">Ver menos</button>
+  </div>
+</section>

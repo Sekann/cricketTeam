@@ -1,50 +1,35 @@
 <header class="app-header">
   <div class="container d-flex align-items-center justify-content-between flex-wrap px-4 py-3">
     <!-- Logo -->
-    <div class="logo d-flex align-items-center gap-3">
-      <img src="/assets/logo.jpg" alt="Madrid United CC" class="logo-img" />
-      <h1 class="m-0">MADRID <span>UNITED CC</span></h1>
-    </div>
+    <a class="logo d-flex align-items-center gap-3" routerLink="/" >
+  <img src="/assets/logo.jpg" alt="Madrid United CC" class="logo-img" />
+  <h1 class="m-0">MADRID <span>UNITED CC</span></h1>
+</a>
+
 
     <!-- Botón hamburguesa para móviles -->
-    <button
-      class="menu-toggle d-md-none"
-      aria-label="Toggle menu"
-      (click)="toggleMenu()"
-    >
+    <button class="menu-toggle d-md-none" aria-label="Toggle menu" (click)="toggleMenu()">
       <i class="bi" [ngClass]="menuOpen ? 'bi-x-lg' : 'bi-list'"></i>
     </button>
 
     <!-- Menú de navegación -->
     <div
-      class="menu d-md-flex align-items-center gap-4"
-      [class.menu-open]="menuOpen"
-      [class.d-none]="!menuOpen && isMobile()"
+      class="menu d-md-flex align-items-center gap-4" [class.menu-open]="menuOpen" [class.d-none]="!menuOpen && isMobile()"
     >
       <nav class="nav-links d-flex flex-column flex-md-row gap-3 text-center">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenuOnMobile()">
-          {{ 'NAV.HOME' | translate }}
+          INICIO
         </a>
-        <a routerLink="/match-results" routerLinkActive="active" (click)="closeMenuOnMobile()">
-          {{ 'NAV.MATCHES' | translate }}
+        <a routerLink="/matches" routerLinkActive="active" (click)="closeMenuOnMobile()">
+          PARTIDOS
         </a>
         <a routerLink="/players" routerLinkActive="active" (click)="closeMenuOnMobile()">
-          {{ 'NAV.PLAYERS' | translate }}
+          JUGADORES
         </a>
-        <a routerLink="/team" routerLinkActive="active" (click)="closeMenuOnMobile()">
-          {{ 'NAV.CONTACT' | translate }}
+        <a routerLink="/contact" routerLinkActive="active" (click)="closeMenuOnMobile()">
+          CONTACTO
         </a>
       </nav>
-
-      <!-- Selector de idioma -->
-      <select
-        class="language-selector mt-3 mt-md-0"
-        [value]="translate.currentLang || 'es'"
-        (change)="changeLanguage($event)"
-      >
-        <option value="es">ES</option>
-        <option value="en">EN</option>
-      </select>
     </div>
   </div>
 </header>

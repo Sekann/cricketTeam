@@ -1,1 +1,36 @@
-<p>match-detail works!</p>
+<div class="match-detail-wrapper" *ngIf="match">
+  <section class="match-detail">
+    <h2 class="section-title-glow">Detalles del Partido</h2>
+
+    <div class="match-info">
+      <article class="team team-local">
+        <img [src]="match.logoLocal" alt="Equipo Local" />
+        <p class="team-name">{{ match.local }}</p>
+      </article>
+
+      <div class="match-vs">
+        <time class="match-date">{{ match.fecha | date: 'fullDate' }}</time>
+        <h3 class="match-result">{{ match.resultado || 'Resultado pendiente' }}</h3>
+      </div>
+
+      <article class="team team-visitante">
+        <img [src]="match.logoVisitante" alt="Equipo Visitante" />
+        <p class="team-name">{{ match.visitante }}</p>
+      </article>
+    </div>
+
+    <div class="match-extra">
+      <p><strong>📍 Estadio:</strong> {{ match.estadio }}</p>
+      <p><strong>📖 Descripción:</strong> {{ match.descripcion }}</p>
+      <p><strong>🏏 Mejor Bateador:</strong> {{ match.mejorBateador }}</p>
+      <p><strong>🎯 Mejor Bowler:</strong> {{ match.mejorBowler }}</p>
+    </div>
+  </section>
+</div>
+
+<div class="not-found" *ngIf="!match">
+  <section class="match-detail not-found-message">
+    <h2>⚠️ Partido no encontrado</h2>
+    <p>El partido que buscas no existe o ha sido eliminado.</p>
+  </section>
+</div>

@@ -4,6 +4,15 @@
   border-bottom: 4px solid #ff0000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 
+  .logo {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
   .logo-img {
     height: 50px;
     filter: drop-shadow(0 0 4px #ff0000aa);

@@ -1,92 +1,121 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ViewChild,Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatchService } from '../services/match/match.service';
+import { NewsService } from '../services/news/news.service';
+import { PlayerService } from '../services/player/player.service';
+
 @Component({
   selector: 'app-inicio',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
-export class InicioComponent implements AfterViewInit {
+export class InicioComponent implements AfterViewInit, OnInit {
   @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
-  constructor(private router: Router) {}
+
+  jugadores: any[] = [];
+  partidos: any[] = [];
+  noticias: any[] = [];
+  today = new Date();
+
+  constructor(
+    private router: Router,
+    private playerService: PlayerService,
+    private matchService: MatchService,
+    private newsService: NewsService
+  ) { }
+
   ngAfterViewInit() {
-  if (this.bgVideo && this.bgVideo.nativeElement) {
-    const video = this.bgVideo.nativeElement;
-    video.muted = true;
-    video.volume = 0;
-    video.play().catch(() => {
-      console.warn('Autoplay bloqueado');
-    });
+    if (this.bgVideo?.nativeElement) {
+      const video = this.bgVideo.nativeElement;
+      video.muted = true;
+      video.volume = 0;
+      video.play().catch(() => {
+        console.warn('Autoplay bloqueado');
+      });
+    }
   }
 
-  const reveals = document.querySelectorAll('.reveal');
+  ngOnInit() {
+    this.playerService.getPlayers()
+      .then(jugadores => {
+        this.jugadores = jugadores.slice(0, 3);
+        return this.newsService.getNoticias(3);
+      })
+      .then(noticias => {
+        this.noticias = noticias;
+        return this.matchService.getAllMatches();
+      })
+      .then(partidosOriginal => {
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+        const today = new Date();
+        const futuros = partidosOriginal
+          .filter(p => new Date(p.fecha) >= today)
+          .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+
+        const pasados = partidosOriginal
+          .filter(p => new Date(p.fecha) < today)
+          .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+
+        const proximos = futuros.slice(0, 3);
+        if (proximos.length < 3) {
+          const faltantes = 3 - proximos.length;
+          const ultimos = pasados.slice(0, faltantes);
+          this.partidos = [...proximos, ...ultimos];
         } else {
-          entry.target.classList.remove('active'); // 👈 vuelve a ocultar al salir
+          this.partidos = proximos;
         }
+
+
+        // Esperar a que Angular actualice el DOM antes de activar animaciones
+        setTimeout(() => this.activarAnimacionesReveal(), 0);
+      })
+      .catch(error => {
+        console.error('Error al cargar los datos:', error);
       });
-    },
-    { threshold: 0.15 }
-  );
+  }
 
-  reveals.forEach((el) => observer.observe(el));
-}
+  activarAnimacionesReveal() {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          } else {
+            entry.target.classList.remove('active');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    reveals.forEach((el) => observer.observe(el));
+  }
 
-verDetalleNoticia(noticia: any) {
-  console.log('Ver más noticia:', noticia);
-}
+  verDetalleNoticia(noticia: any) {
+    this.router.navigate(['/news/', noticia.id]);
+  }
 
-verTodasNoticias() {
-  
-  this.router.navigate(['/news']);
-}
+  verDetallePartido(partido: any) {
+    this.router.navigate(['/matches/', partido.id]);
+  }
 
-verDetallePartido(partido: any) {
-  console.log('Ver más partido:', partido);
-}
+  verTodosPartidos() {
+    this.router.navigate(['/matches']);
+  }
 
-verTodosPartidos() {
-  this.router.navigate(['/matches']);
-}
+  verDetalleJugador(jugador: any) {
+    this.router.navigate(['/players/', jugador.id]);
+  }
 
-verDetalleJugador(jugador: any) {
-  console.log('Ver más jugador:', jugador);
-}
-
-verTodosJugadores() {
-this.router.navigate(['/players']);}
-  
-  
-  noticias = [
-    { titulo: 'Victoria en casa', resumen: 'El equipo se impone 3-1 en un partido vibrante.', img: 'assets/Aqib.jpg' },
-    { titulo: 'Entrenamiento abierto', resumen: 'El club organiza sesión para fans y prensa.', img: 'assets/Aqib.jpg' },
-    { titulo: 'Nuevo fichaje', resumen: 'Bienvenido a la familia, Saeed Ahmed.', img: 'assets/Aqib.jpg' },
-  ];
-
-  partidos = [
-    { local: 'Madrid United', visitante: 'Valencia Cricket', fecha: new Date('2025-07-10') },
-    { local: 'Barcelona Lions', visitante: 'Madrid United', fecha: new Date('2025-07-17') },
-    { local: 'Madrid United', visitante: 'Zaragoza Smashers', fecha: new Date('2025-07-24') },
-  ];
-
-  jugadores = [
-    { nombre: 'Ali Khan', posicion: 'Bateador', foto: 'assets/Aqib.jpg' },
-    { nombre: 'Rashid Patel', posicion: 'Lanzador', foto: 'assets/Aqib.jpg' },
-    { nombre: 'Juan López', posicion: 'Wicket Keeper', foto: 'assets/Aqib.jpg' },
-  ];
+  verTodosJugadores() {
+    this.router.navigate(['/players']);
+  }
 
   scrollTo(sectionId: string) {
     const el = document.getElementById(sectionId);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
 }
-function ngAfterViewInit() {
-  throw new Error('Function not implemented.');
-}
-
