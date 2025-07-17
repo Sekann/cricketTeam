@@ -121,4 +121,14 @@
       }
     }
   }
+  @media (max-width: 600px) {
+    .team-logo {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    .team-name {
+      font-size: 0.9rem !important;
+    }
+
+  }
 }
